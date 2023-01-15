@@ -28,7 +28,6 @@ import com.apiCrowdfunding.javaProject.services.ContributionService;
 
 import com.apiCrowdfunding.javaProject.services.ProjectService;
 import com.apiCrowdfunding.javaProject.services.UserService;
-import org.springframework.security.core.Authentication;
 
 @RestController
 @RequestMapping("/api/projects")
