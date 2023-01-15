@@ -21,17 +21,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 	
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 	
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new UserDetailsService() {
-			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-				return userRepository.getByEmail(username);
+			public UserDetails loadUserByUsername(String username) {
+        		return userRepository.findByEmail(username);
 			}
-		};		
+		};
 	}
+
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -50,3 +50,4 @@ public class ApplicationConfig {
 		return new BCryptPasswordEncoder();
 	}	
 }
+

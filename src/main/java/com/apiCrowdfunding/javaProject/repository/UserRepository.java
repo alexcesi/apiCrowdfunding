@@ -1,12 +1,16 @@
 package com.apiCrowdfunding.javaProject.repository;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import com.apiCrowdfunding.javaProject.models.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -37,14 +41,14 @@ public class UserRepository{
 		return res;
 	}
 	
-	public User getByEmail(String email) {
-		User res = null;
+	public User findByEmail(String email) {
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+		query.setParameter("email", email);
 		try {
-			res = em.find(User.class, email);
-		}catch (Exception e) {
-			e.printStackTrace();
+			return query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
 		}
-		return res;
 	}
 	
 	public User add(User user) {

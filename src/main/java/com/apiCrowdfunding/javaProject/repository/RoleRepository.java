@@ -15,4 +15,8 @@ public class RoleRepository {
     public Role findById(Integer id) {
         return em.find(Role.class, id);
     }
+
+    public Role findByName(String name) {
+        return em.find(Role.class, name);
+    }
 }
