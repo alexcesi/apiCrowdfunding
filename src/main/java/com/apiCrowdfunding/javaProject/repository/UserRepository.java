@@ -1,7 +1,7 @@
 package com.apiCrowdfunding.javaProject.repository;
 
-import java.time.Instant;
 import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import com.apiCrowdfunding.javaProject.models.User;
 import jakarta.persistence.EntityManager;
@@ -37,10 +37,10 @@ public class UserRepository{
 		return res;
 	}
 	
-	public User get(String username) {
+	public User getByEmail(String email) {
 		User res = null;
 		try {
-			res = em.find(User.class, username);
+			res = em.find(User.class, email);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,6 +74,15 @@ public class UserRepository{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public User save(User user) {
+		try {
+			em.persist(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 	
 }

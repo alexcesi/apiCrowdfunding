@@ -27,8 +27,8 @@ public class UserService {
 		return userRepository.get(id);		
 	}
 	
-	public User getByUsername(String username) {
-		return userRepository.get(username);		
+	public User getByEmail(String email) {
+		return userRepository.getByEmail(email);		
 	}
 
 	public User add(User user) throws Exception{
