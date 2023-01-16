@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import com.apiCrowdfunding.javaProject.models.Role;
 import com.apiCrowdfunding.javaProject.repository.RoleRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class RoleService {
 	
 	@Autowired
