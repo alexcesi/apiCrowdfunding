@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.apiCrowdfunding.javaProject.models.Comment;
+import com.apiCrowdfunding.javaProject.models.Compensation;
 import com.apiCrowdfunding.javaProject.models.Contribution;
 import com.apiCrowdfunding.javaProject.models.Image;
 import com.apiCrowdfunding.javaProject.models.Project;
 import com.apiCrowdfunding.javaProject.models.User;
-
+import com.apiCrowdfunding.javaProject.services.CommentService;
+import com.apiCrowdfunding.javaProject.services.CompensationService;
 import com.apiCrowdfunding.javaProject.services.ContributionService;
 
 import com.apiCrowdfunding.javaProject.services.ProjectService;
@@ -39,6 +42,12 @@ public class ProjectController {
 	
     @Autowired
     private ContributionService contributionService;
+
+	@Autowired
+	private CommentService commentService;
+
+	@Autowired
+	private CompensationService compensationService;
 	 
 	@Autowired
 	private UserService userService;
@@ -139,6 +148,34 @@ public class ProjectController {
 		// Enregistrement de la contribution dans la base de données
 		contribution = contributionService.add(contribution);
 		return ResponseEntity.ok(contribution);
+	}
+
+	@PostMapping("/{id}/comments")
+	public ResponseEntity<Comment> addComment(@PathVariable("id") Integer projectId, @RequestBody Comment comment) {
+		// Récupération du projet correspondant à l'id spécifié
+		Project project = projectService.getById(projectId);
+		Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = (User) currentUser;
+		System.out.print(user);
+		// Mise à jour de la contribution avec le projet correspondant
+		comment.setProject(project);
+		// Récupération de l'utilisateur actuellement connecté pour l'ajouter comme
+		// contributeur
+		comment.setUser(user);
+		// Enregistrement de la contribution dans la base de données
+		comment = commentService.add(comment);
+		return ResponseEntity.ok(comment);
+	}
+
+	@PostMapping("/{id}/compensations")
+	public ResponseEntity<Compensation> addCompensation(@PathVariable("id") Integer projectId, @RequestBody Compensation compensation) {
+		// Récupération du projet correspondant à l'id spécifié
+		Project project = projectService.getById(projectId);
+		// Mise à jour de la contribution avec le projet correspondant
+		compensation.setProject(project);
+		// Enregistrement de la contribution dans la base de données
+		compensation = compensationService.add(compensation);
+		return ResponseEntity.ok(compensation);
 	}
 
 }

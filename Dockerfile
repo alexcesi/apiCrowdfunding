@@ -1,18 +1,12 @@
-FROM maven:3.6.4-jdk-14 as build
+FROM openjdk
 
+# Set the working directory
+WORKDIR /app
 
-COPY src /app/src
+# Copy the pom.xml and target/ dependencies to the container
+COPY pom.xml .
+COPY target/dependency/BOOT-INF/lib /app/lib
+COPY target/*.jar app.jar
 
-COPY pom.xml /app
-
-RUN mvn -f /app/pom.xml clean package
-
-
-
-FROM openjdk:14-jre-alpine
-
-COPY --from=build /app/target/*.jar app.jar
-
-EXPOSE 8080
-
+# Run the application
 CMD ["java", "-jar", "app.jar"]

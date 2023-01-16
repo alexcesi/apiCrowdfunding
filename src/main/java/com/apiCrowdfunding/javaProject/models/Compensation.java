@@ -12,6 +12,20 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "compensation")
 public class Compensation {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
+	@Column(name = "amount", nullable = false)
+	private Integer amount;
+
+	@Column(name = "description", nullable = false)
+	private String description;
+
+	@ManyToOne
+	@JoinColumn(name = "compensation_projet_id", nullable = false)
+	private Project project;
 	
     public Integer getId() {
 		return id;
@@ -44,19 +58,4 @@ public class Compensation {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
-
-    @Column(name = "description", nullable = false)
-    private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "compensation_projet_id", nullable = false)
-    private Project project;
-
 }

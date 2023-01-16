@@ -3,13 +3,13 @@ services:
   myapp:
     build: .
     ports:
-      - "8080:8080"
+      - "8085:8080"
     depends_on:
       - db
   db:
     image: mysql:8.0
     environment:
-      - MYSQL_DATABASE=databse_jee
-      - MYSQL_USER=root
+      - MYSQL_DATABASE=${MYSQL_database_url}
+      - MYSQL_USER=${MYSQL_root}
     ports:
       - "3306:3306"
