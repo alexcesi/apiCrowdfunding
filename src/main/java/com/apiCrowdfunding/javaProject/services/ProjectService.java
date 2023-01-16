@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import com.apiCrowdfunding.javaProject.models.Project;
 import com.apiCrowdfunding.javaProject.repository.ProjectRepository;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
+@Transactional
 public class ProjectService {
 
 	@Autowired

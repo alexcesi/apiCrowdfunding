@@ -9,6 +9,7 @@ import jakarta.persistence.PersistenceContext;
 
 @Repository
 public class RoleRepository {
+    
     @PersistenceContext
     private EntityManager em;
     

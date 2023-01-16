@@ -16,16 +16,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	
-
-	private final JwtService jwtService;
+	@Autowired
+	private JwtService jwtService;
 	
-	private  final UserDetailsService userDetailsService;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	@Override
 	protected void doFilterInternal(

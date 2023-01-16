@@ -10,16 +10,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import lombok.RequiredArgsConstructor;
-
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+
 public class SecurityConfiguration {
 	
-	private final JwtAuthenticationFilter jwtAuthenticationFilter;
+	@Autowired
+	private  JwtAuthenticationFilter jwtAuthenticationFilter;
 	
-	private final AuthenticationProvider authenticationProvider;
+	@Autowired
+	private  AuthenticationProvider authenticationProvider;
 	
 	
 	@Bean

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.apiCrowdfunding.javaProject.models.User;
 import com.apiCrowdfunding.javaProject.repository.UserRepository;
 
-import jakarta.transaction.Transactional;
 import java.security.SecureRandom;
 
 @Service
@@ -31,7 +30,6 @@ public class UserService {
 		return userRepository.findByEmail(email);		
 	}
 
-	@Transactional
 	public User add(User user) throws Exception{
 		String password = user.getPassword();
 		user.setPassword(password);

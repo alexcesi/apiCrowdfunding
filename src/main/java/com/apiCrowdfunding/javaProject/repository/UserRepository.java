@@ -74,14 +74,4 @@ public class UserRepository{
 			e.printStackTrace();
 		}
 	}
-
-	public User save(User user) {
-		try {
-			em.persist(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return user;
-	}
-	
 }

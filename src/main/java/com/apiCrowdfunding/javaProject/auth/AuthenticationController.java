@@ -1,5 +1,6 @@
 package com.apiCrowdfunding.javaProject.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,9 +19,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-	private final AuthenticationService service;
+	@Autowired
+	private AuthenticationService service;
 
-	
 	@Operation(summary = "create user with token", description = "recupere le token du user crée")
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "200", description = "Retour de tous les users"),

@@ -18,11 +18,20 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class AuthenticationService {
 	
-	private final UserService service;
-	private final UserRepository repository;
-	private final PasswordEncoder passwordEncoder;
-	private final JwtService jwtService;
-	private final AuthenticationManager authenticationManager;
+	@Autowired
+	private  UserService service;
+
+	@Autowired
+	private  UserRepository repository;
+
+	@Autowired
+	private  PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private  JwtService jwtService;
+	
+	@Autowired
+	private  AuthenticationManager authenticationManager;
 
 	@Autowired
 	private RoleService roleService;
