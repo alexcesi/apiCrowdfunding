@@ -17,11 +17,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 	
-	@Autowired
-	private JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	
-	@Autowired
-	private AuthenticationProvider authenticationProvider;
+	private final AuthenticationProvider authenticationProvider;
 	
 	
 	@Bean

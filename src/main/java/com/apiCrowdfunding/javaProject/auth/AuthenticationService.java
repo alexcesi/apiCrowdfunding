@@ -14,9 +14,8 @@ import com.apiCrowdfunding.javaProject.services.RoleService;
 import com.apiCrowdfunding.javaProject.services.UserService;
 
 import lombok.RequiredArgsConstructor;
-
-@Service
 @RequiredArgsConstructor
+@Service
 public class AuthenticationService {
 	
 	private final UserService service;
