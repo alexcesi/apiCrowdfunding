@@ -1,6 +1,6 @@
 version: '3.10'
 services:
-  myapp:
+  crowdfunding:
     build: .
     ports:
       - "8085:8080"
@@ -9,7 +9,7 @@ services:
   db:
     image: mysql:8.0
     environment:
-      - MYSQL_DATABASE=${MYSQL_database_url}
-      - MYSQL_USER=${MYSQL_root}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
     ports:
-      - "3306:3306"
+      - "3307:3306"
