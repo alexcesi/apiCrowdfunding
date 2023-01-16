@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -124,18 +125,20 @@ public class ProjectController {
 		return ResponseEntity.ok(image);
     }
 	
-	  @PostMapping("/{id}/contributions")
-	    public ResponseEntity<Contribution> addContribution(@PathVariable("id") Integer projectId, @RequestBody Contribution contribution) {
-		  	// Récupération du projet correspondant à l'id spécifié
-		    Project project = projectService.getById(projectId);
-		    // Mise à jour de la contribution avec le projet correspondant
-		    contribution.setProject(project);
-		    // Récupération de l'utilisateur actuellement connecté pour l'ajouter comme contributeur
-		    //User user = authenticationService.getCurrentUser();
-		    //contribution.setUser(user);
-		    // Enregistrement de la contribution dans la base de données
-		    contribution = contributionService.add(contribution);
-		    return ResponseEntity.ok(contribution);
-	    }
+	@PostMapping("/{id}/contributions")
+	public ResponseEntity<Contribution> addContribution(@PathVariable("id") Integer projectId, @RequestBody Contribution contribution) {
+		// Récupération du projet correspondant à l'id spécifié
+		Project project = projectService.getById(projectId);
+		Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = (User) currentUser;
+		System.out.print(user);
+		// Mise à jour de la contribution avec le projet correspondant
+		contribution.setProject(project);
+		// Récupération de l'utilisateur actuellement connecté pour l'ajouter comme contributeur
+		contribution.setUser(user);
+		// Enregistrement de la contribution dans la base de données
+		contribution = contributionService.add(contribution);
+		return ResponseEntity.ok(contribution);
+	}
 
 }
