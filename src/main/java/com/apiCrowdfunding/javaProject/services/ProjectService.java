@@ -15,7 +15,7 @@ public class ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 	
-	public List<Project> getAllProjects() throws Exception{
+	public List<Project> getAllProjects() {
 		return projectRepository.getAll();		
 	}
 	

@@ -46,11 +46,9 @@ public class ProjectController {
 
 	@GetMapping("")
     public ResponseEntity<List<Project> >getAllProjects() {
-		try {
+	
     		return ResponseEntity.ok().body(projectService.getAllProjects());
-		} catch (Exception e) {
-			return ResponseEntity.status(500).body(null);
-		}
+		
     }
 	
 	@GetMapping("/{id}")

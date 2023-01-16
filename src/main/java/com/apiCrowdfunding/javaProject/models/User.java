@@ -22,7 +22,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -48,6 +47,14 @@ public class User implements UserDetails{
 	
 	@Column(name = "is_project_owner", nullable = false)
 	private boolean isProjectOwner;
+	
+	public User(String username, String email, String password, boolean isProjectOwner, Role role) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.isProjectOwner = isProjectOwner;
+		this.role = role;
+	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

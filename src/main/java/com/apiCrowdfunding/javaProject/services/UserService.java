@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.apiCrowdfunding.javaProject.models.User;
 import com.apiCrowdfunding.javaProject.repository.UserRepository;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
+
+import jakarta.transaction.Transactional;
 import java.security.SecureRandom;
 
 @Service
@@ -28,18 +28,13 @@ public class UserService {
 	}
 	
 	public User getByEmail(String email) {
-		return userRepository.getByEmail(email);		
+		return userRepository.findByEmail(email);		
 	}
 
+	@Transactional
 	public User add(User user) throws Exception{
 		String password = user.getPassword();
-		byte[] salt = new byte[16];
-		random.nextBytes(salt);
-		MessageDigest md = MessageDigest.getInstance("SHA-512");
-		md.update(salt);
-		byte[] passwordEncrypted = md.digest(password.getBytes(StandardCharsets.UTF_8));
-		String securePass = passwordEncrypted.toString();
-		user.setPassword(securePass);
+		user.setPassword(password);
 		return userRepository.add(user);		
 	}
 	

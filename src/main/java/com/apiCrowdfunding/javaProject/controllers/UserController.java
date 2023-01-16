@@ -19,8 +19,14 @@ import com.apiCrowdfunding.javaProject.models.User;
 import com.apiCrowdfunding.javaProject.services.RoleService;
 import com.apiCrowdfunding.javaProject.services.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
-@RequestMapping("/api/users")	
+@RequestMapping("/api/v1/users")
+@Tag(name="user", description = "CRUD user")	
 public class UserController {
 
 	@Autowired
@@ -28,6 +34,11 @@ public class UserController {
 	@Autowired
     private RoleService roleService;
 	
+	@Operation(summary = "get all", description = "recupere tous les users en bdd")
+	@ApiResponses(value= {
+		@ApiResponse(responseCode = "200", description="Retour de tous les users"),
+		@ApiResponse(responseCode = "500", description="Exception")
+	})
 	@GetMapping("")
     public ResponseEntity<List<User> >getAllUsers() {
     	try {
@@ -49,7 +60,7 @@ public class UserController {
     @PostMapping("")
 	public ResponseEntity<User> create(@RequestBody User user) {
     	Integer roleId = user.getRole().getId();
-        Role role = roleService.findById(roleId);
+        Role role = roleService.getRoleById(roleId);
         user.setRole(role);
 		 try {
 			 user = userService.add(user);
@@ -64,7 +75,7 @@ public class UserController {
     	try {
     	  User currentUser = userService.getById(id);
     	  Integer roleId = user.getRole().getId();
-          Role role = roleService.findById(roleId);
+          Role role = roleService.getRoleById(roleId);
           user.setRole(role);
     	  if (currentUser == null) {
               return new ResponseEntity<>(HttpStatus.NOT_FOUND);
